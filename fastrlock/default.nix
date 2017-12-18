@@ -1,6 +1,6 @@
-{ stdenv, python, pythonPackages, fetchPypi }:
+{ stdenv, python, fetchPypi }:
 
-with pythonPackages;
+with python.pkgs;
 
 buildPythonPackage rec {
   name = "${pname}-${version}";

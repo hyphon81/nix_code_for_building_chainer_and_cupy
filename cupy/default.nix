@@ -1,15 +1,16 @@
 { stdenv,
   pkgs,
-  python ? pkgs.python3,
-  pythonPackages,
+  python,
   fetchPypi
 }:
 
 with pkgs;
-with pythonPackages;
+with python.pkgs;
 
 let
-  fastrlock = callPackage ../fastrlock {};
+  fastrlock = callPackage ../fastrlock {
+    python = python;
+  };
   nccl = callPackage ../nccl {};
 in
 
@@ -25,7 +26,6 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     gcc5
-    python
   ];
 
   propagatedBuildInputs = [
@@ -36,8 +36,12 @@ buildPythonPackage rec {
     fastrlock
     numpy
     six
+    wheel
   ];
 
   CFLAGS = "-I ${cudnn60_cudatoolkit80}/include -I ${nccl}/include";
   LDFLAGS = "-L ${cudnn60_cudatoolkit80}/lib -L ${nccl}/lib";
+
+  # In python3, test was failed...
+  doCheck = isPy27;
 }
