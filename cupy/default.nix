@@ -17,11 +17,11 @@ in
 buildPythonPackage rec {
   name = "${pname}-${version}";
   pname = "cupy";
-  version = "4.0.0b2";
+  version = "2.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "13hnw3phx1p5c0igdr1z1v5pap2rav0kcd2sdnvl1kab0r8p7yp1";
+    sha256 = "0si0ri8azxvxh3lpm4l4g60jf4nwzibi53yldbdbzb1svlqq060r";
   };
 
   nativeBuildInputs = [
@@ -39,6 +39,7 @@ buildPythonPackage rec {
     wheel
   ];
 
+  CUDA_PATH = "${cudatoolkit8}";
   CFLAGS = "-I ${cudnn60_cudatoolkit80}/include -I ${nccl}/include";
   LDFLAGS = "-L ${cudnn60_cudatoolkit80}/lib -L ${nccl}/lib";
 

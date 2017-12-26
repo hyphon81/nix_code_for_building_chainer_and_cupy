@@ -4,6 +4,7 @@
   fetchPypi
 }:
 
+with pkgs;
 with python.pkgs;
 
 let
@@ -18,11 +19,11 @@ in
 buildPythonPackage rec {
   name = "${pname}-${version}";
   pname = "chainer";
-  version = "4.0.0b2";
+  version = "3.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0r1g9s3jbkb3qkvq4r8kmykgibx79fcnyy04q350qg34fqvlkl38";
+    sha256 = "0mbc8kwk7pvg03bf0j57a48gr6rsdg4lzmyj0dak8y2l4lmyskpw";
   };
 
   propagatedBuildInputs = [
